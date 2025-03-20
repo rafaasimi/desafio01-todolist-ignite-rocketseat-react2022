@@ -1,0 +1,61 @@
+.main {
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1.5rem;
+}
+
+.header :is(.tasksCreated, .tasksFinished) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--gray-200);
+    font-size: 0.75rem;
+    font-weight: bold;
+
+    background: var(--gray-400);
+    padding: 0.125rem 0.5rem;
+    border-radius: 99px;
+  }
+}
+
+.header .tasksCreated {
+  & strong {
+    color: var(--blue);
+    font-size: 0.875rem;
+  }
+}
+
+.header .tasksFinished {
+  & strong {
+    color: var(--purple);
+    font-size: 0.875rem;
+  }
+}
+
+.emptyList {
+  padding: 4rem 0;
+  color: var(--gray-300);
+  text-align: center;
+
+  border-top: 1px solid var(--gray-400);
+  border-radius: 8px;
+
+  & svg {
+    margin-bottom: 1rem;
+  }
+
+  & p {
+    line-height: 1.4;
+  }
+}
