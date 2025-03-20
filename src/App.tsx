@@ -1,13 +1,17 @@
 import { Header } from "./components/Header";
 
 import "./global.css";
+import styles from './App.module.css'
+import { AddTask } from "./components/AddTask";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
-      <p>Hello World</p>
-    </div>
+      <div className={styles.wrapper}>
+        <AddTask />
+      </div>
+    </>
   );
 }
 
