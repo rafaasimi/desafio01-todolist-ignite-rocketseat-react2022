@@ -1,8 +1,10 @@
-import { Clipboard } from "@phosphor-icons/react";
+import { Clipboard, Trash } from "@phosphor-icons/react";
 import styles from "./TaskList.module.css";
 
 interface TaskListProps {
   tasks: Task[];
+  markTaskAsDone: (id: number) => void;
+  removeTask: (id: number) => void;
 }
 
 export interface Task {
@@ -11,7 +13,7 @@ export interface Task {
   isDone: boolean;
 }
 
-export function TaskList({ tasks }: TaskListProps) {
+export function TaskList({ tasks, markTaskAsDone, removeTask }: TaskListProps) {
   const countTasksCreated = tasks.length;
   const countTasksFinished = tasks.reduce((acc, task) => {
     if (task.isDone) {
@@ -19,6 +21,14 @@ export function TaskList({ tasks }: TaskListProps) {
     }
     return acc;
   }, 0);
+
+  function handleMarkTaskAsDone(id: number) {
+    markTaskAsDone(id);
+  }
+
+  function handleRemoveTask(id: number) {
+    removeTask(id);
+  }
 
   return (
     <main className={styles.main}>
@@ -35,15 +45,36 @@ export function TaskList({ tasks }: TaskListProps) {
       </header>
 
       <div className={styles.listWrapper}>
-        <div className={styles.emptyList}>
-          <Clipboard size={56} />
-          <p>
-            <strong>Você ainda não tem tarefas cadastradas</strong>
-          </p>
-          <p>Crie tarefas e organize seus itens a fazer</p>
-        </div>
+        {countTasksCreated === 0 && (
+          <div className={styles.emptyList}>
+            <Clipboard size={56} />
+            <p>
+              <strong>Você ainda não tem tarefas cadastradas</strong>
+            </p>
+            <p>Crie tarefas e organize seus itens a fazer</p>
+          </div>
+        )}
 
-        <ul className={styles.tasksList}></ul>
+        {countTasksCreated > 0 && (
+          <ul className={styles.tasksList}>
+            {tasks.map((task) => (
+              <li key={task.content}>
+                <input
+                  type="checkbox"
+                  checked={task.isDone}
+                  onChange={() => handleMarkTaskAsDone(task.id)}
+                />
+                <p>{task.content}</p>
+                <button
+                  title="Remover tarefa"
+                  onClick={() => handleRemoveTask(task.id)}
+                >
+                  {<Trash size={24} />}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </main>
   );

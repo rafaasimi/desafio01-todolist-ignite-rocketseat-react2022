@@ -12,6 +12,7 @@ export function AddTask({ addNewTask }: AddTaskProps) {
   function handleAddNewTask(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault();
     addNewTask(newTask);
+    setNewTask("");
   }
 
   function handleNewTaskChange(event: React.ChangeEvent<HTMLInputElement>) {
